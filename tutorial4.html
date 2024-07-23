@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+    <head>
+        <title>
+            Tutorial 4
+        </title>
+        <style>
+             input[type=submit],input[type=reset]{
+            background-color: rgb(148, 170, 201);
+            color: white;
+            float: right;
+            padding: 12px 20px;
+            border-radius: 4px;
+        }
+             h1{
+            text-align: center;
+        }
+            .f1{
+            background-color: rgb(175, 200, 250);
+            padding: 1em;
+            font: 80%/1 sans-serif;
+            border-radius: 8px;
+        }
+            
+        .f2{
+            background-color: rgb(249, 190, 131);
+            padding: 1em;
+            font: 80%/1 sans-serif;
+            border-radius: 8px;
+        }
+
+        .f3{
+            background-color: rgb(151, 129, 106);
+            padding: 1em;
+            font: 80%/1 sans-serif;
+            border-radius: 8px;
+        }
+
+        .a{ position: absolute;
+            left: 120px;}
+
+        
+        
+        </style>
+    </head>
+    <body>
+        <h1>Hotel Reservation </h1>
+        <form >
+            <fieldset   class="f1"  >
+                <legend><b> Personal Details></Personal></b></Personal></legend>
+                <label for="First name"> First Name:</label>
+                <input style="position: relative;left: 20px;" type="text" name="First name" id=" First name" placeholder="Enter your First Name"><br>
+                <label for="Surname">Surname:</label> 
+                <input style="position: relative;left: 32px;" type="text" name="Surname" id="Surname"><br>
+                <label for="email">Email Adress:</label> 
+                <input style="position: relative;left: 10px;"type="email" name=" email" id=" email"><br>
+                <label for="Password">Set up a password:</label>
+                <input type="password" name="password" id="password" min="8" placeholder="Min 8 characters, use at least 1 caps, no special characters" size="50" >
+            
+            
+            </fieldset> <br>
+            <fieldset class="f2"  >
+                <legend>Booking Details</legend>
+                <label for="Checkin day">check in day:</label>
+                <input  style="position: relative;left: 22px;" type="date" name="check in day" id="check in day" value="2023-02-14 "required class=""> <br>
+                <label for="Nod">Number of Days:</label>
+                <input type="number" id="Nod" name="Nod" min="
+                0" > <br>
+                <label for="SR">Single Room:</label>
+                <input type="radio" name="SR" id="SR" class="a"> <br> <br>
+                <label for="DR">Double Room:</label>
+                <input type="radio" name="DR" id="DR" class="a"    ><br> <br>
+                <label for="KR"  >King Room:</label> 
+                <input type="radio" name="KR" id="KR"  class="a"> <br> <br>
+                <label for="Breakfast">Breakfast:</label>
+                <select  name="Breakfast" id="Breakfast" class="a">
+                    <option value="Include">Include</option>
+                    <option value="Not Include">Not Include</option>
+                </select> <br>
+                <label for="SR" style="position: relative ; bottom:50px ;"   >Special Requirements:</label>
+                <textarea id="SR" name="SR"  rows="5" style="position: relative; top: 10px;">Please provide any special requirements</textarea>
+            </fieldset><br>
+            <fieldset class="f3">
+                <input type="reset" name="button" value="reset">
+                <input type="submit" name="send" value="send"> 
+            </fieldset>
+        </form>
+
+    </body>
+</html>
