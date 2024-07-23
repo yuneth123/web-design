@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 6</title>
+    <style>
+      body{
+        background-color: whitesmoke;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1{
+        text-align: center;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      }
+      #question-container{
+        display: none;
+      }
+      .question-container{
+        background-color: rgb(210, 227, 227);
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        width: flex;
+        border: 1px solid;
+        border-radius: 5px;
+        padding: 6px;
+      }
+      .questions{
+        color: rgb(15, 15, 182);
+      }
+      .question{
+        border: 1px solid;
+        padding: 2px 14px;
+
+      }
+      .correct{
+        color: rgb(20, 226, 20);
+        font-weight: bold;
+      }
+      .incorrect{
+        color: red;
+        font-weight: bold;
+      }
+      input{
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        padding: 6px 18px;
+      }
+      button{
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        padding: 6px 18px;
+        background-color: rgb(67, 225, 46);
+        color: white;
+        font-weight: 600;
+        float: right;
+      }
+      button:hover{
+        background-color: rgb(9, 105, 47);
+        cursor: pointer;
+      }
+      button:active{
+        background-color: rgb(99, 246, 148);
+      }
+      #mark{
+        text-align: center;
+        border: 0.5px solid;
+        font-weight: 400;
+      }
+      #score{
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Simple Maths Game</h1>
+    <button id="startQuiz">Start Quiz</button>
+    <div class="question-container" id="question-container">
+      <p>
+        <strong class="questions">Question1</strong>
+        <span class="question" id="question1"></span>
+        <span id="answer1">
+          <input type="number" id="getanswer1">
+          <button id="submitanswer1">Submit</button>
+        </span>
+        <span id="feedback1"></span>
+      </p>
+      <p>
+        <strong class="questions">Question2</strong>
+        <span class="question" id="question2"></span>
+        <span id="answer2">
+          <input type="number" id="getanswer2">
+          <button id="submitanswer2">Submit</button>
+        </span>
+        <span id="feedback2"></span>
+      </p>
+      <p>
+        <strong class="questions">Question3</strong>
+        <span class="question" id="question3"></span>
+        <span id="answer3">
+          <input type="number" id="getanswer3">
+          <button id="submitanswer3">Submit</button>
+        </span>
+        <span id="feedback3"></span>
+      </p>
+      <p>
+        <strong class="questions">Question4</strong>
+        <span class="question" id="question4"></span>
+        <span id="answer4">
+          <input type="number" id="getanswer4">
+          <button id="submitanswer4">Submit</button>
+        </span>
+        <span id="feedback4"></span>
+      </p>
+      <p>
+        <strong class="questions">Question5</strong>
+        <span class="question" id="question5"></span>
+        <span id="answer5">
+          <input type="number" id="getanswer5">
+          <button id="submitanswer5">Submit</button>
+        </span>
+        <span id="feedback5"></span>
+      </p>
+      <p id="mark">
+        Your Score &#58;
+        <span id="score"></span>
+      </p>
+    </div>
+    <script>
+
+      document.getElementById('startQuiz').addEventListener('click', function () {
+        alert('submit decimal answers with two decimal points')
+        document.getElementById('startQuiz').style.display = 'none';
+        document.getElementById('question-container').style.display = 'flex';
+      });
+
+      var questionText = [];
+      var totalMarks = 0;
+      var operators = ['+', '-', '/', '*'];
+
+      for (let i = 1; i <= 5; i++) {
+          let firstNum = Math.floor(Math.random() * 10);
+          let secondNum = 0;
+          while (secondNum === 0){
+              secondNum = Math.floor(Math.random() * 10);
+          }
+          let randomIndex = Math.floor(Math.random() * operators.length);
+          let operator = operators[randomIndex];
+          let question = `${firstNum} ${operator} ${secondNum}`;
+          questionText.push(question);
+      }
+
+      function displayQuestions() {
+          for (let i = 1; i <= 5; i++) {
+              document.getElementById('question' + i).textContent = questionText[i - 1];
+          }
+      }
+      displayQuestions();
+
+      for (let i = 1; i <= 5; i++) {
+          document.getElementById('submitanswer' + i).addEventListener('click', function() {
+              const feedback = document.getElementById('feedback' + i);
+              const userAnswer = parseFloat(document.getElementById('getanswer' + i).value.trim());
+              feedback.classList.remove('correct', 'incorrect');
+
+              if (isNaN(userAnswer)) {
+                  feedback.textContent = "Please enter a valid number!";
+                  return;
+              }
+
+              const correctAns = correctAnswer(i);
+
+              if (userAnswer == correctAns) {
+                  feedback.classList.add("correct");
+                  feedback.innerHTML = "&checkmark; Answer is correct";
+                  totalMarks++;
+              } else {
+                  feedback.classList.add("incorrect");
+                  feedback.innerHTML = "&cross; Correct answer is " + correctAns;
+              }
+
+              document.getElementById('submitanswer' + i).disabled = true;
+              document.getElementById('getanswer' + i).readOnly = true;
+              getTotalMark();
+          });
+      }
+
+      function getTotalMark() {
+          let finalMark = totalMarks * 10;
+          const body = document.body;
+          document.getElementById('score').textContent = finalMark + "/50";
+          if (totalMarks <= 1){
+            body.style.backgroundColor = 'rgb(223, 52, 52)';
+          } else if (totalMarks <= 2){
+            body.style.backgroundColor = 'rgb(223, 12, 100)';
+          } else if (totalMarks <= 4){
+            body.style.backgroundColor = 'rgb(167, 255, 255)';
+          } else {
+            body.style.backgroundColor = 'rgb(151, 255, 207)';
+          }
+      }
+
+      function correctAnswer(questionNumber) {
+          let question = questionText[questionNumber - 1];
+          let parts = question.split(' ');
+          let answer = 0;
+          let firstNum = parseInt(parts[0]);
+          let operator = parts[1];
+          let secondNum = parseInt(parts[2]);
+          switch (operator){
+            case '+':
+              answer = firstNum + secondNum;
+              break;
+            case '-':
+              answer = firstNum - secondNum;
+              break;
+            case '/':
+              answer = firstNum / secondNum;
+              break;
+            case '*':
+              answer = firstNum * secondNum;
+              break;
+            default:
+              answer = "Invalid operator";
+              break;
+          }
+          if (Number.isInteger(answer)){
+            return answer;
+          }
+          else {
+            return answer.toFixed(2);
+          }
+      }
+    </script>
+  </body>
+</html>
