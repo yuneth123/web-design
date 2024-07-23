@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 5</title>
+    <style>
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+
+        .question-block {
+            margin-bottom: 10px;
+        }
+
+        .question, .answer, .feedback {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>A Simple Maths Game</h1>
+    <form id="maths-game" onsubmit="return false;">
+        <div class="question-block">
+            <span class="question" id="question1"></span>
+            <input type="text" class="answer" id="answer1">
+            <span class="feedback" id="feedback1"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question2"></span>
+            <input type="text" class="answer" id="answer2">
+            <span class="feedback" id="feedback2"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question3"></span>
+            <input type="text" class="answer" id="answer3">
+            <span class="feedback" id="feedback3"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question4"></span>
+            <input type="text" class="answer" id="answer4">
+            <span class="feedback" id="feedback4"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question5"></span>
+            <input type="text" class="answer" id="answer5">
+            <span class="feedback" id="feedback5"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question6"></span>
+            <input type="text" class="answer" id="answer6">
+            <span class="feedback" id="feedback6"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question7"></span>
+            <input type="text" class="answer" id="answer7">
+            <span class="feedback" id="feedback7"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question8"></span>
+            <input type="text" class="answer" id="answer8">
+            <span class="feedback" id="feedback8"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question9"></span>
+            <input type="text" class="answer" id="answer9">
+            <span class="feedback" id="feedback9"></span>
+        </div>
+        <div class="question-block">
+            <span class="question" id="question10"></span>
+            <input type="text" class="answer" id="answer10">
+            <span class="feedback" id="feedback10"></span>
+        </div>
+        <button type="submit" onclick="checkAnswers()">Submit</button>
+    </form>
+    <p>You Score: <span id="score"></span></p>
+
+    <script>
+        const questions = [
+            "12 x 6 = ...",
+            "26 - 7 = ...",
+            "15 + 4 = ...",
+            "8 x 3 = ...",
+            "10 - 2 = ...",
+            "9 + 8 = ...",
+            "7 x 7 = ...",
+            "14 / 2 = ...",
+            "20 - 5 = ...",
+            "18 + 3 = ..."
+        ];
+        const answers = [72, 19, 19, 24, 8, 17, 49, 7, 15, 21];
+
+        // Initialize questions
+        for (let i = 0; i < questions.length; i++) {
+            document.getElementById(`question${i + 1}`).innerHTML = questions[i];
+        }
+
+        function checkAnswers() {
+            let correctCount = 0;
+
+            for (let i = 0; i < questions.length; i++) {
+                let userAnswer = document.getElementById(`answer${i + 1}`).value;
+                let feedbackElement = document.getElementById(`feedback${i + 1}`);
+
+                if (parseInt(userAnswer) === answers[i]) {
+                    feedbackElement.innerHTML = "&checkmark;";
+                    feedbackElement.classList.add("correct");
+                    feedbackElement.classList.remove("incorrect");
+                    correctCount++;
+                } else {
+                    feedbackElement.innerHTML = `&cross; (Correct answer: ${answers[i]})`;
+                    feedbackElement.classList.add("incorrect");
+                    feedbackElement.classList.remove("correct");
+                }
+            }
+
+            document.getElementById("score").innerHTML = correctCount * 10;
+        }
+    </script>
+</body>
+</html>
